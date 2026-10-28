@@ -36,7 +36,9 @@ export function usePatients() {
         .eq("org_id", orgId)
         .order("created_at", { ascending: false });
       if (error) throw error;
-      return (data || []) as Patient[];
+      return ((data || []) as Patient[]).filter(
+        (p) => p.referral_source !== "walkthrough" && !(p.first_name === "Walkthrough" && p.last_name === "Demo Patient"),
+      );
     },
   });
 }
