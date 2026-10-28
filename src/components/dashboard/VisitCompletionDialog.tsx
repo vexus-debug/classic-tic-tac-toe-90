@@ -23,6 +23,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
 import { Package, Trash2, NotebookPen, FlaskConical, Sparkles } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
+import { PostOpInstructions } from "@/components/dashboard/PostOpInstructions";
 import { useQuery } from "@tanstack/react-query";
 import {
   AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
@@ -376,6 +377,18 @@ export function VisitCompletionDialog({ open, onOpenChange, patientId, patientNa
               ))}
               <p className="text-[11px] text-muted-foreground">Saved to the patient's notes when the visit ends.</p>
             </section>
+
+            <Separator />
+
+            <PostOpInstructions
+              patientId={patientId}
+              patientName={patientName}
+              procedures={[
+                ...(apptTreatment ? [apptTreatment.name] : []),
+                ...selected.map((i) => `${i.description}${i.tooth_number ? ` (tooth ${i.tooth_number})` : ""}`),
+              ]}
+              meds={prescriptions.flatMap((rx: any) => (rx.prescription_medications || []).map((m: any) => [m.medication_name || m.name, m.dosage, m.frequency, m.duration].filter(Boolean).join(" ")))}
+            />
 
             <Separator />
 

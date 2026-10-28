@@ -19,6 +19,10 @@ import { useAuth } from "@/hooks/useAuth";
 import { useOrg } from "@/hooks/useOrg";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
+import { askClinicAi, consentRiskPrompt } from "@/lib/aiDental";
+import { Loader2 as AiLoader, Sparkles as AiSparkles } from "lucide-react";
+const Loader2 = AiLoader;
+const Sparkles = AiSparkles;
 import { consentTemplateSeeds } from "@/data/consentTemplates";
 import { useClinicTerms } from "@/hooks/useClinicTerms";
 import { eyeConsentTemplateSeeds } from "@/data/consentTemplatesEye";
@@ -75,6 +79,7 @@ export default function ConsentFormsPage() {
 
   const [templateForm, setTemplateForm] = useState({ title: "", content: "", category: "general" });
   const [consentForm, setConsentForm] = useState({ patientId: "", templateId: "", title: "", content: "" });
+  const [tailoring, setTailoring] = useState(false);
 
   const [importDialogOpen, setImportDialogOpen] = useState(false);
   const [importKeys, setImportKeys] = useState<string[]>([]);
@@ -474,7 +479,26 @@ export default function ConsentFormsPage() {
               </Select>
             </div>
             <div className="space-y-1"><Label className="text-xs">Title *</Label><Input value={consentForm.title} onChange={e => setConsentForm(f => ({ ...f, title: e.target.value }))} /></div>
-            <div className="space-y-1"><Label className="text-xs">Content *</Label><Textarea value={consentForm.content} onChange={e => setConsentForm(f => ({ ...f, content: e.target.value }))} rows={6} /></div>
+            <div className="space-y-1">
+              <div className="flex items-center justify-between">
+                <Label className="text-xs">Content *</Label>
+                <Button type="button" size="sm" variant="ghost" className="h-7 text-xs" disabled={tailoring || !consentForm.patientId || !consentForm.title}
+                  onClick={async () => {
+                    if (!currentOrg?.org_id) return;
+                    setTailoring(true);
+                    try {
+                      const extra = await askClinicAi(currentOrg.org_id, consentRiskPrompt(consentForm.patientId, consentForm.title, consentForm.content), "consent-tailor");
+                      setConsentForm(f => ({ ...f, content: `${f.content.trim()}\n\n${extra}` }));
+                    } catch (e: any) {
+                      toast({ title: "Couldn't tailor risks", description: e?.message, variant: "destructive" });
+                    } finally { setTailoring(false); }
+                  }}>
+                  {tailoring ? <Loader2 className="h-3 w-3 mr-1 animate-spin" /> : <Sparkles className="h-3 w-3 mr-1" />} Add patient risks with AI
+                </Button>
+              </div>
+              <Textarea value={consentForm.content} onChange={e => setConsentForm(f => ({ ...f, content: e.target.value }))} rows={6} />
+              <p className="text-[11px] text-muted-foreground">Pick a patient and title first. Review AI-added risks before saving.</p>
+            </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setFormDialogOpen(false)}>Cancel</Button>
