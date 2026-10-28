@@ -189,7 +189,7 @@ export function VisitCompletionDialog({ open, onOpenChange, patientId, patientNa
   // Pre-tick completed and in-progress work (patients often pay ahead on long plans).
   useEffect(() => {
     if (!open) return;
-    setSelectedItems(new Set(planItems.filter((i) => i.status === "completed" || i.status === "in-progress").map((i) => i.id)));
+    setSelectedItems(new Set(planItems.map((i) => i.id)));
     setIncludeAppt(true);
   }, [open, planItems.length]);
 
