@@ -13,6 +13,15 @@ export interface UpdateEntry {
 
 export const updates: UpdateEntry[] = [
   {
+    version: "v2.5.1",
+    date: "October 28, 2026",
+    title: "Page tabs now highlight and switch correctly",
+    kind: "fix",
+    items: [
+      { kind: "fix", text: "Tabs at the top of each page (e.g. Appointments, Staff Schedules, Waiting List) now show the right active tab and switch instantly." },
+    ],
+  },
+  {
     version: "v2.5.0",
     date: "October 28, 2026",
     title: "Cleaner dental menu: 8 clear destinations",

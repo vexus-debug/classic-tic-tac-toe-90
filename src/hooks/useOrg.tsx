@@ -132,7 +132,7 @@ export function OrgProvider({ children }: { children: ReactNode }) {
 
   const isBranch = !!currentOrg?.parent_org_id;
   const mainOrgId = currentOrg ? (currentOrg.parent_org_id || currentOrg.org_id) : null;
-  const basePath = currentOrg ? `/clinic/${currentOrg.org_slug}` : "";
+  const basePath = currentOrg ? `/app/clinic/${currentOrg.org_slug}` : "";
 
 
   return (

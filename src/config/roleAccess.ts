@@ -185,7 +185,7 @@ export function hasPageAccess(orgRole: string, relativePath: string, clinicType?
  * e.g. "/clinic/my-clinic/patients" -> "patients"
  */
 export function extractRelativePath(pathname: string): string {
-  const match = pathname.match(/^\/clinic\/[^/]+\/(.+)$/);
+  const match = pathname.match(/^(?:\/app)?\/clinic\/[^/]+\/(.+)$/);
   return match ? match[1] : "dashboard";
 }
 
