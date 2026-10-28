@@ -7,13 +7,13 @@ import { askClinicAi, postOpPrompt } from "@/lib/aiDental";
 import { toast } from "@/hooks/use-toast";
 
 /** AI-drafted, editable post-op instructions based on today's procedures and prescriptions. */
-export function PostOpInstructions({ patientId, patientName, procedures, meds }: { patientId: string; patientName?: string; procedures: string[]; meds: string[] }) {
+export function PostOpInstructions({ patientId, patientName, procedures, meds }: { patientId?: string | null; patientName?: string; procedures: string[]; meds: string[] }) {
   const { currentOrg } = useOrg();
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
 
   const generate = async () => {
-    if (!currentOrg?.org_id) return;
+    if (!currentOrg?.org_id || !patientId) return;
     setLoading(true);
     try {
       setText(await askClinicAi(currentOrg.org_id, postOpPrompt(patientId, procedures, meds), "post-op-instructions"));
