@@ -102,7 +102,8 @@ export function useCreatePatientConsentForm() {
       content: string;
       created_by?: string;
     }) => {
-      const { data, error } = await (supabase as any).from("patient_consent_forms").insert({ ...form, org_id: currentOrg?.org_id }).select().single();
+      const { created_by: _ignored, ...payload } = form;
+      const { data, error } = await (supabase as any).from("patient_consent_forms").insert({ ...payload, org_id: currentOrg?.org_id }).select().single();
       if (error) throw error;
       return data;
     },

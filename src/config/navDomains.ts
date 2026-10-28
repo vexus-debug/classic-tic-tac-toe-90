@@ -122,7 +122,6 @@ export const DENTAL_HUBS: HubDomain[] = [
       { title: "Lab Settings", path: "lab/settings" },
       { title: "Website Settings", path: "website-settings" },
       { title: "Shop Management", path: "shop-management" },
-      { title: "Subscription", path: "subscription" },
       { title: "Automation", path: "automation" },
     ],
   },

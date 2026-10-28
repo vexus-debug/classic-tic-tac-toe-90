@@ -318,7 +318,6 @@ const App = () => (
               <Route path="inventory" element={<InventoryPage />} />
               <Route path="notifications" element={<NotificationsPage />} />
               <Route path="settings" element={<SettingsPage />} />
-              <Route path="subscription" element={<SubscriptionPage />} />
               <Route path="profile" element={<MyProfilePage />} />
               <Route path="tutorials" element={<TutorialsPage />} />
               <Route path="messages" element={<MessagesPage />} />
