@@ -13,6 +13,15 @@ export interface UpdateEntry {
 
 export const updates: UpdateEntry[] = [
   {
+    version: "v2.5.3",
+    date: "October 28, 2026",
+    title: "Billable items ticked by default",
+    kind: "improvement",
+    items: [
+      { kind: "improvement", text: "In Finish visit, all billable items are now ticked by default — untick anything you don't want to bill." },
+    ],
+  },
+  {
     version: "v2.5.2",
     date: "October 28, 2026",
     title: "Consent forms fixed, cleaner patient lists",
