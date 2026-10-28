@@ -13,6 +13,17 @@ export interface UpdateEntry {
 
 export const updates: UpdateEntry[] = [
   {
+    version: "v2.5.2",
+    date: "October 28, 2026",
+    title: "Consent forms fixed, cleaner patient lists",
+    kind: "fix",
+    items: [
+      { kind: "fix", text: "Creating a patient consent form no longer shows a 'created_by' error." },
+      { kind: "fix", text: "The walkthrough demo patient no longer appears in patient lists or pickers." },
+      { kind: "improvement", text: "The Subscription page was removed from the clinic dashboard." },
+    ],
+  },
+  {
     version: "v2.5.1",
     date: "October 28, 2026",
     title: "Page tabs now highlight and switch correctly",
