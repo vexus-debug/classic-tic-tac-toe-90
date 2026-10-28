@@ -13,6 +13,16 @@ export interface UpdateEntry {
 
 export const updates: UpdateEntry[] = [
   {
+    version: "v2.5.4",
+    date: "October 28, 2026",
+    title: "AI consent risks and post-op instructions",
+    kind: "feature",
+    items: [
+      { kind: "feature", text: "Consent forms: \"Add patient risks with AI\" appends procedure- and history-specific risks for review." },
+      { kind: "feature", text: "Finish visit: draft editable, printable aftercare instructions with AI based on today's treatment and prescriptions." },
+    ],
+  },
+  {
     version: "v2.5.3",
     date: "October 28, 2026",
     title: "Billable items ticked by default",
