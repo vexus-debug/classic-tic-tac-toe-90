@@ -35,11 +35,11 @@ export function DentistVisitWalkthrough({ open, onOpenChange }: { open: boolean;
   const [started, setStarted] = useState(false);
   const [tooth, setTooth] = useState<number | null>(null);
   const [notes, setNotes] = useState(false);
-  const [done, setDone] = useState<number[]>([]);
+  const [done, setDone] = useState<number[]>(PROCS.map((_, i) => i));
   const [rx, setRx] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const reset = () => { setStep(0); setStarted(false); setTooth(null); setNotes(false); setDone([]); setRx(false); setSent(false); };
+  const reset = () => { setStep(0); setStarted(false); setTooth(null); setNotes(false); setDone(PROCS.map((_, i) => i)); setRx(false); setSent(false); };
   const close = (o: boolean) => { if (!o) reset(); onOpenChange(o); };
 
   const ready = [true, started, tooth !== null, notes, done.length > 0, true, sent, true][step];
